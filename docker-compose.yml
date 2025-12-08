@@ -1,0 +1,55 @@
+services:
+  composer:
+    image: composer:latest
+    container_name: "composer"
+    volumes:
+      - ./project:/app
+    working_dir: /app
+    user: "${UID:-1000}:${GID:-1000}"
+    command: composer install
+    profiles:
+      - composer
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: "php"
+    ports:
+      - "${PHP_PORT}:8000"
+    depends_on:
+      - mysql
+    volumes:
+      - ./project:/var/www/html
+    working_dir: /var/www/html
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    networks:
+      - my_network
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  mysql:
+    image: mysql:8.0
+    container_name: "mysql"
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - my_network
+    ports:
+      - "${DB_PORT:-3306}:3306"
+
+volumes:
+  mysql_data:
+
+networks:
+  my_network:
+    driver: bridge
