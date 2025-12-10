@@ -52,7 +52,6 @@ El sistema está diseñado para ser intuitivo y rápido de configurar, permitié
 
    # Port Configuration
    PHP_PORT=8000
-   MYSQL_PORT=3306
 
    # User Configuration (for Composer)
    UID=1000
