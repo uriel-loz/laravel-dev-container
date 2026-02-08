@@ -48,7 +48,7 @@ docker exec -it php php artisan key:generate
 bash mysql/wait_service.sh
 
 echo -e "${GREEN}✅ Ejecutando migraciones: ${NC}" 
-docker exec -it php php artisan migrate
+docker exec -it php php artisan migrate --seed
 
 # echo -e "${GREEN}✅ Estableciendo nuevas claves de passport: ${NC}"
 # docker exec -it php php artisan passport:client --password
