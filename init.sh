@@ -39,6 +39,11 @@ else
     echo -e "${GREEN}✅ Carpeta vendor ya existe, omitiendo Composer${NC}"
 fi
 
+echo -e "${GREEN}✅ Configuración de MCP para MySQL${NC}"
+bash config/set_mcp_mysql.sh
+
+echo -e "${GREEN}✅ Configuración de MCP para MySQL generada correctamente${NC}"
+
 echo -e "${GREEN}✅ Iniciando servicios mysql y php...${NC}"
 docker compose up -d mysql php
 
