@@ -3,7 +3,7 @@
 # Archivos a generar
 open_code_file="./project/opencode.json"
 vscode_code_file="./project/.vscode/mcp.json"
-windsurf_code_file="./project/.windsurf/mcp.json"
+# windsurf_code_file="./project/.windsurf/mcp.json"
 
 # Variables de entorno
 db_user="$DB_USERNAME"
@@ -20,10 +20,10 @@ create_mcp_files() {
         # Crear directorio .vscode si no existe
         mkdir -p "$(dirname "$vscode_code_file")"
         [ ! -f "$vscode_code_file" ] && touch "$vscode_code_file"
-    else
-        # Crear directorio .windsurf si no existe
-        mkdir -p "$(dirname "$windsurf_code_file")"
-        [ ! -f "$windsurf_code_file" ] && touch "$windsurf_code_file"
+    # else
+    #     # Crear directorio .windsurf si no existe
+    #     mkdir -p "$(dirname "$windsurf_code_file")"
+    #     [ ! -f "$windsurf_code_file" ] && touch "$windsurf_code_file"
         
     fi
 }
@@ -106,8 +106,8 @@ add_files_gitignore() {
         grep -qxF "opencode.json" "./project/.gitignore" || echo -e "\nopencode.json" >> "./project/.gitignore"
         if [ -n "$WSL_DISTRO_NAME" ]; then
             grep -qxF ".vscode/mcp.json" "./project/.gitignore" || echo -e "\n.vscode/mcp.json" >> "./project/.gitignore"
-        else
-            grep -qxF ".windsurf/mcp.json" "./project/.gitignore" || echo -e "\n.windsurf/mcp.json" >> "./project/.gitignore"
+        # else
+        #     grep -qxF ".windsurf/mcp.json" "./project/.gitignore" || echo -e "\n.windsurf/mcp.json" >> "./project/.gitignore"
         fi
     fi
 }
@@ -118,8 +118,8 @@ set_mcp_mysql() {
 
     if [ -n "$WSL_DISTRO_NAME" ]; then
         content_vscode
-    else
-        content_windsurf
+    # else
+    #     content_windsurf
     fi
 
     add_files_gitignore
